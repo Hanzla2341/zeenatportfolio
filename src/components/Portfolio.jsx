@@ -3,6 +3,9 @@ import './Portfolio.css';
 
 const CATEGORIES = ['All', 'Logo', 'Brand Identity', 'Social Media', 'Banner', 'Business Card'];
 
+const API_URL = 'https://zeenobackend.vercel.app/api';
+const IMAGE_BASE = 'https://zeenobackend.vercel.app';
+
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [projects, setProjects] = useState([]);
@@ -25,7 +28,7 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch('/api/projects');
+        const res = await fetch(`${API_URL}/projects`);
         if (res.ok) {
           const data = await res.json();
           setProjects(data.length > 0 ? data : demoProjects);
@@ -94,7 +97,7 @@ const Portfolio = () => {
                 onClick={() => setSelected(project)}
               >
                 <div className="portfolio-img-wrap">
-                  <img src={project.imageUrl} alt={project.title} loading="lazy" />
+                  <img src={project.imageUrl.startsWith('http') ? project.imageUrl : `${IMAGE_BASE}${project.imageUrl}`} alt={project.title} loading="lazy" />
                   <div className="portfolio-overlay">
                     <div className="overlay-content">
                       <span className="overlay-category">{project.category}</span>
@@ -125,7 +128,7 @@ const Portfolio = () => {
         <div className="modal-overlay" onClick={() => setSelected(null)}>
           <div className="modal-box" onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setSelected(null)}>✕</button>
-            <img src={selected.imageUrl} alt={selected.title} className="modal-img" />
+            <img src={selected.imageUrl.startsWith('http') ? selected.imageUrl : `${IMAGE_BASE}${selected.imageUrl}`} alt={selected.title} className="modal-img" />
             <div className="modal-info">
               <span className="section-label">{selected.category}</span>
               <h3 className="modal-title">{selected.title}</h3>

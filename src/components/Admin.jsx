@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Admin.css';
 
-const API = '/api';
+const API = 'https://zeenobackend.vercel.app/api';
+const IMAGE_BASE = 'https://zeenobackend.vercel.app';
 
 const Admin = () => {
   const [authed, setAuthed] = useState(false);
@@ -307,7 +308,7 @@ const Admin = () => {
                 {projects.map(p => (
                   <div key={p._id} className="admin-project-card">
                     <div className="admin-project-img">
-                      <img src={p.imageUrl} alt={p.title} />
+                      <img src={p.imageUrl.startsWith('http') ? p.imageUrl : `${IMAGE_BASE}${p.imageUrl}`} alt={p.title} />
                       {p.featured && <span className="featured-badge">★ Featured</span>}
                     </div>
                     <div className="admin-project-info">
