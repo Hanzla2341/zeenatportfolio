@@ -11,11 +11,10 @@ import Footer from './components/Footer';
 import Admin from './components/Admin';
 
 function App() {
-  const isAdmin = window.location.pathname === '/admin';
+  const pathname = window.location.pathname.replace(/\/$/, '') || '/';
+  const isAdmin = pathname === '/admin';
 
-  if (isAdmin) {
-    return <Admin />;
-  }
+  if (isAdmin) return <Admin />;
 
   return (
     <>

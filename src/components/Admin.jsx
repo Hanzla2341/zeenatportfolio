@@ -276,7 +276,7 @@ const Admin = () => {
                 </div>
 
                 {uploadMsg && (
-                  <div className={`form-feedback ${uploadMsg.startsWith('✓') ? 'success' : 'error'}`}>
+                  <div className={`form-feedback ${uploadMsg && uploadMsg.startsWith('✓') ? 'success' : 'error'}`}>
                     {uploadMsg}
                   </div>
                 )}
@@ -308,7 +308,7 @@ const Admin = () => {
                 {projects.map(p => (
                   <div key={p._id} className="admin-project-card">
                     <div className="admin-project-img">
-                      <img src={p.imageUrl.startsWith('http') ? p.imageUrl : `${IMAGE_BASE}${p.imageUrl}`} alt={p.title} />
+                      <img src={p.imageUrl && p.imageUrl.startsWith('http') ? p.imageUrl : `${IMAGE_BASE}${p.imageUrl || ''}`} alt={p.title} />
                       {p.featured && <span className="featured-badge">★ Featured</span>}
                     </div>
                     <div className="admin-project-info">
